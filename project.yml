@@ -1,0 +1,16 @@
+schema_version: 1
+
+project:
+  name: lib.scad.util
+
+profiles:
+  - type: scad
+    config: project.scad.yml
+
+dependencies:
+  - name: tool.scad-project
+    role: tooling
+    type: git-submodule
+    url: https://github.com/brainboxemb/tool.scad-project.git
+    path: tools/tool.scad-project
+    ref: v0.15.0
