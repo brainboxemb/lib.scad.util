@@ -1,13 +1,17 @@
-// Domain-independent OpenSCAD inspection helpers.
+// File: inspection.scad
+//   Domain-independent helpers for inspecting thin axis-aligned slices of
+//   arbitrary OpenSCAD child geometry.
 //
-// Public API:
-//   util_section_inspect(axis, position, depth, direction)
+// FileSummary: Public X/Y/Z section-inspection utility for interactive CAD work.
 //
-// This helper keeps a thin axis-aligned slice of arbitrary child geometry.
-// It is intended mainly for interactive inspection from a project's
-// main.scad / Customizer view.
+// The utility is intended mainly for a project's main.scad / Customizer view.
+// It keeps one exact slab of the child model without changing the model itself.
 //
-// All dimensional values are millimetres.
+// Coordinate meaning:
+// - axis = "X", "Y" or "Z" selects the normal of the retained slab;
+// - position is the first section plane on that axis, in millimetres;
+// - depth is the exact thickness that remains visible, in millimetres;
+// - direction selects which side of position contains that retained thickness.
 //
 // Example:
 //   util_section_inspect(
@@ -23,24 +27,20 @@
 // axis = "None" is a deliberate no-op and passes children through unchanged.
 
 
-// Keep an exact inspection slice of child geometry.
-//
-// Parameters:
-//   axis
-//     "None", "X", "Y" or "Z".
-//     "None" disables inspection and leaves the child geometry unchanged.
-//
-//   position
-//     Position of the first section plane on the selected axis.
-//
-//   depth
-//     Thickness of the material that remains visible, measured from position.
-//     Minimum supported value: 0.1 mm.
-//
-//   direction
-//     "Positive" keeps the slice from position to position + depth.
-//     "Negative" keeps the slice from position - depth to position.
-//
+// Module: util_section_inspect()
+// Usage:
+//   util_section_inspect(axis="Z", position=0, depth=0.1, direction="Positive")
+//       my_model();
+// Description:
+//   Retains one exact axis-aligned inspection slab of the child geometry.
+//   Use axis="None" to disable inspection without changing the surrounding
+//   consumer code.
+// Arguments:
+//   axis = "None", "X", "Y" or "Z". "None" passes children through unchanged.
+//   position = First section plane on the selected axis, in millimetres.
+//   depth = Retained slab thickness measured from position. Minimum 0.1 mm.
+//   direction = "Positive" retains position..position+depth; "Negative"
+//               retains position-depth..position.
 module util_section_inspect(
     axis = "None",
     position = 0,
@@ -77,10 +77,10 @@ module util_section_inspect(
 }
 
 
-// Internal slab used by util_section_inspect().
-//
-// The slab is deliberately much larger than normal CAD models on the two
-// non-section axes, so only the selected axis controls the retained thickness.
+// Private implementation: build the clipping slab used by
+// util_section_inspect().  The slab is deliberately much larger than normal
+// CAD models on the two non-section axes, so only the selected axis controls
+// the retained thickness.
 module _util_section_slab(
     axis,
     position,
