@@ -1,0 +1,24 @@
+workspace:
+  inheritedTasks:
+    include:
+      - scad.docs
+      - scad.verify
+
+tasks:
+  scad.docs:
+    inputs:
+      - 'openscad/**/*.scad'
+      - 'openscad/**/design/**'
+
+  scad.verify:
+    inputs:
+      - 'openscad/**/*.scad'
+      - 'test/**'
+      - 'vrf/**'
+      - 'scripts/**'
+      - 'bootstrap.sh'
+      - 'bootstrap.ps1'
+      - 'update-repo.sh'
+      - 'update-repo.ps1'
+      - '.github/workflows/**'
+      - 'tools/tool.git-project'
