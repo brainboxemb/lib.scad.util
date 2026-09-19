@@ -3,8 +3,44 @@
 // Public API:
 //   util_section_inspect(axis, position, depth, direction)
 //
+// This helper keeps a thin axis-aligned slice of arbitrary child geometry.
+// It is intended mainly for interactive inspection from a project's
+// main.scad / Customizer view.
+//
 // All dimensional values are millimetres.
+//
+// Example:
+//   util_section_inspect(
+//       axis = "Z",
+//       position = 0,
+//       depth = 0.1,
+//       direction = "Positive"
+//   )
+//       my_model();
+//
+// The example keeps only Z = 0.0 .. +0.1 mm.
+// With direction = "Negative" it keeps Z = -0.1 .. 0.0 mm.
+// axis = "None" is a deliberate no-op and passes children through unchanged.
 
+
+// Keep an exact inspection slice of child geometry.
+//
+// Parameters:
+//   axis
+//     "None", "X", "Y" or "Z".
+//     "None" disables inspection and leaves the child geometry unchanged.
+//
+//   position
+//     Position of the first section plane on the selected axis.
+//
+//   depth
+//     Thickness of the material that remains visible, measured from position.
+//     Minimum supported value: 0.1 mm.
+//
+//   direction
+//     "Positive" keeps the slice from position to position + depth.
+//     "Negative" keeps the slice from position - depth to position.
+//
 module util_section_inspect(
     axis = "None",
     position = 0,
@@ -40,6 +76,11 @@ module util_section_inspect(
     }
 }
 
+
+// Internal slab used by util_section_inspect().
+//
+// The slab is deliberately much larger than normal CAD models on the two
+// non-section axes, so only the selected axis controls the retained thickness.
 module _util_section_slab(
     axis,
     position,
