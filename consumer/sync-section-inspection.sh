@@ -27,14 +27,16 @@ if [[ "$start_count" -gt 1 ]]; then
   exit 1
 fi
 
+if [[ "$start_count" -eq 0 ]] && grep -Eq '^[[:space:]]*section_(axis|position_mm|depth_mm|direction)[[:space:]]*=' "$target"; then
+  echo "Unmanaged section-inspection variables already exist in: $target" >&2
+  echo "Remove or mark the old block before synchronizing to avoid duplicate parameters." >&2
+  exit 1
+fi
+
 tmp="$(mktemp)"
 trap 'rm -f "$tmp"' EXIT
 
-if [[ "$start_count" -eq 0 ]]; then
-  cat "$target" > "$tmp"
-  printf '\n\n' >> "$tmp"
-  cat "$snippet" >> "$tmp"
-else
+if [[ "$start_count" -eq 1 ]]; then
   awk -v start="$start" -v end="$end" -v snippet_file="$snippet" '
     $0 == start {
       while ((getline line < snippet_file) > 0) print line
@@ -48,7 +50,24 @@ else
     }
     !managed { print }
   ' "$target" > "$tmp"
+else
+  awk -v snippet_file="$snippet" '
+    !inserted && $0 ~ /^[[:space:]]*(module|function)[[:space:]]/ {
+      while ((getline line < snippet_file) > 0) print line
+      close(snippet_file)
+      print ""
+      inserted = 1
+    }
+    { print }
+    END {
+      if (!inserted) {
+        print ""
+        while ((getline line < snippet_file) > 0) print line
+        close(snippet_file)
+      }
+    }
+  ' "$target" > "$tmp"
 fi
 
 cat "$tmp" > "$target"
-echo "Synchronized section-inspection consumer block in $target"
+echo "Synchronized section-inspection Customizer block in $target"

@@ -30,10 +30,11 @@ if ($StartCount -ne $EndCount) {
 if ($StartCount -gt 1) {
     throw "Multiple managed section-inspection blocks found in: $Target"
 }
+if ($StartCount -eq 0 -and $Content -match '(?m)^\s*section_(axis|position_mm|depth_mm|direction)\s*=') {
+    throw "Unmanaged section-inspection variables already exist in: $Target. Remove or mark the old block before synchronizing."
+}
 
-if ($StartCount -eq 0) {
-    $Updated = $Content.TrimEnd([char[]](13, 10)) + [Environment]::NewLine + [Environment]::NewLine + $Managed
-} else {
+if ($StartCount -eq 1) {
     $Pattern = "(?ms)^" + [regex]::Escape($StartMarker) + ".*?^" + [regex]::Escape($EndMarker) + "\r?\n?"
     $Updated = [regex]::Replace(
         $Content,
@@ -41,7 +42,14 @@ if ($StartCount -eq 0) {
         [System.Text.RegularExpressions.MatchEvaluator]{ param($m) $Managed },
         1
     )
+} else {
+    $FirstModule = [regex]::Match($Content, '(?m)^\s*(module|function)\s+')
+    if ($FirstModule.Success) {
+        $Updated = $Content.Insert($FirstModule.Index, $Managed + [Environment]::NewLine)
+    } else {
+        $Updated = $Content.TrimEnd([char[]](13, 10)) + [Environment]::NewLine + [Environment]::NewLine + $Managed
+    }
 }
 
 [System.IO.File]::WriteAllText($ResolvedTarget, $Updated)
-Write-Host "Synchronized section-inspection consumer block in $Target"
+Write-Host "Synchronized section-inspection Customizer block in $Target"

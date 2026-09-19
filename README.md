@@ -60,11 +60,17 @@ section_depth_mm = 10;          // [0.1:0.1:200]
 section_direction = "Positive"; // [Positive,Negative]
 ```
 
-The block also defines `util_section_inspect_configured()`, so the consumer
-only needs:
+The managed block contains only Customizer variables, so it can safely stay
+with the consumer's other top-level parameters. The model is wrapped explicitly
+where it is rendered:
 
 ```openscad
-util_section_inspect_configured()
+util_section_inspect(
+    axis = section_axis,
+    position = section_position_mm,
+    depth = section_depth_mm,
+    direction = section_direction
+)
     selected_view();
 ```
 
