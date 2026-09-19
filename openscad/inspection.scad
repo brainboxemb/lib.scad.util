@@ -5,38 +5,6 @@
 //
 // All dimensional values are millimetres.
 
-module _util_section_slab(
-    axis,
-    position,
-    depth,
-    direction
-) {
-    span = 1000000;
-    positive = direction == "Positive";
-
-    if (axis == "X")
-        translate([
-            positive ? position : position - depth,
-            -span / 2,
-            -span / 2
-        ])
-            cube([depth, span, span]);
-    else if (axis == "Y")
-        translate([
-            -span / 2,
-            positive ? position : position - depth,
-            -span / 2
-        ])
-            cube([span, depth, span]);
-    else if (axis == "Z")
-        translate([
-            -span / 2,
-            -span / 2,
-            positive ? position : position - depth
-        ])
-            cube([span, span, depth]);
-}
-
 module util_section_inspect(
     axis = "None",
     position = 0,
@@ -70,4 +38,36 @@ module util_section_inspect(
             );
         }
     }
+}
+
+module _util_section_slab(
+    axis,
+    position,
+    depth,
+    direction
+) {
+    span = 1000000;
+    positive = direction == "Positive";
+
+    if (axis == "X")
+        translate([
+            positive ? position : position - depth,
+            -span / 2,
+            -span / 2
+        ])
+            cube([depth, span, span]);
+    else if (axis == "Y")
+        translate([
+            -span / 2,
+            positive ? position : position - depth,
+            -span / 2
+        ])
+            cube([span, depth, span]);
+    else if (axis == "Z")
+        translate([
+            -span / 2,
+            -span / 2,
+            positive ? position : position - depth
+        ])
+            cube([span, span, depth]);
 }

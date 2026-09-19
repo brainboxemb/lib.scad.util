@@ -26,6 +26,9 @@ OpenSCAD's shared namespace.
 
 Private implementation helpers use a leading underscore.
 
+Within a source file, place public modules/functions before their private
+implementation helpers so the consumer-facing API is visible first.
+
 Keep dependencies minimal. A utility should use plain OpenSCAD when practical;
 do not add BOSL2 or another geometry dependency merely for convenience.
 
