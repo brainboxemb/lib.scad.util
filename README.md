@@ -39,6 +39,11 @@ xf_xmove(x);
 xf_ymove(y);
 xf_zmove(z);
 
+xf_flip([x, y, z]);
+xf_xflip();
+xf_yflip();
+xf_zflip();
+
 xf_rot([x_angle, y_angle, z_angle]);
 
 xf_xrot(angle);

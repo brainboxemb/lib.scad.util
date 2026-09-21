@@ -32,7 +32,7 @@ openscad \
 test -s "$out/section-none.stl"
 
 transform_source="$root/test/transform.scad"
-for transform in move xmove ymove zmove rot xrot yrot zrot object frame frame-object; do
+for transform in move xmove ymove zmove flip xflip yflip zflip rot xrot yrot zrot object frame frame-object; do
   openscad \
     --enable=object-function \
     --render \
@@ -74,6 +74,7 @@ Verified:
 - Z / Positive and Negative section inspection;
 - None / pass-through section inspection;
 - xf_move();
+- xf_flip(), xf_xflip(), xf_yflip() and xf_zflip();
 - xf_xmove(), xf_ymove() and xf_zmove();
 - xf_rot();
 - xf_xrot(), xf_yrot() and xf_zrot();

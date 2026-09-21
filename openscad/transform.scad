@@ -200,6 +200,41 @@ module xf_zmove(distance) {
 }
 
 
+
+// Module: xf_flip()
+// Synopsis: Mirrors child geometry across the plane normal to v.
+// Arguments:
+//   v = Mirror-plane normal vector.
+module xf_flip(v) {
+    mirror(v)
+        children();
+}
+
+
+// Module: xf_xflip()
+// Synopsis: Mirrors child geometry across the YZ plane.
+module xf_xflip() {
+    xf_flip([1, 0, 0])
+        children();
+}
+
+
+// Module: xf_yflip()
+// Synopsis: Mirrors child geometry across the XZ plane.
+module xf_yflip() {
+    xf_flip([0, 1, 0])
+        children();
+}
+
+
+// Module: xf_zflip()
+// Synopsis: Mirrors child geometry across the XY plane.
+module xf_zflip() {
+    xf_flip([0, 0, 1])
+        children();
+}
+
+
 // Module: xf_rot()
 // Usage:
 //   xf_rot([90, 0, 45])
