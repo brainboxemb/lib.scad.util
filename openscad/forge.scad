@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 // LibFile: forge.scad
-//   Small plain-OpenSCAD modeling helpers for readable transforms,
-//   tagged booleans and reliable cutter overlap.
+//   Small plain-OpenSCAD modeling helpers for tagged booleans and reliable
+//   cutter overlap. See forge/manual.md for role and overlap semantics.
 //////////////////////////////////////////////////////////////////////
 
 use <transform.scad>
@@ -219,9 +219,10 @@ module fg_keep() {
 // Module: fg_diff()
 // Synopsis: Performs an explicit body/remove/keep tagged difference.
 // Description:
-//   The result is (body - remove) + keep. Role branches are intentionally
-//   explicit siblings so Forge works with ordinary OpenSCAD geometry without
-//   an attachable framework or selector parser.
+//   The result is (body - remove) + keep. All participating geometry should
+//   pass through an fg_body(), fg_remove(), fg_keep() or fg_tag() role. Forge
+//   works with ordinary OpenSCAD geometry without an attachment framework or
+//   selector parser.
 module fg_diff() {
     union() {
         difference() {

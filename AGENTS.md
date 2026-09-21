@@ -37,6 +37,17 @@ implementation helpers so the consumer-facing API is visible first.
 Keep dependencies minimal. A utility should use plain OpenSCAD when practical;
 do not add BOSL2 or another geometry dependency merely for convenience.
 
+## Documentation
+
+Keep the root README as the quickstart and navigation surface. Language-like
+utility layers with non-trivial behavior should also have a focused manual next
+to their source, for example `openscad/forge/manual.md` and
+`openscad/transform/manual.md`.
+
+Document intent and boundaries, not only signatures. In particular, keep
+Boolean overlap distinct from fit clearance and document when native OpenSCAD
+is clearer than adding another helper.
+
 ## Units and geometry
 
 Public dimensional parameters are millimetres unless explicitly documented

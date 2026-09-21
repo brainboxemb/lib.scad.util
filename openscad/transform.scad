@@ -1,11 +1,11 @@
 // File: transform.scad
 //   Lightweight, domain-independent transform convenience modules.
 //
-// FileSummary: Small plain-OpenSCAD move/rotate wrappers with an xf_ prefix.
+// FileSummary: Plain-OpenSCAD placement, rotation, reflection and frame helpers.
 //
-// These helpers intentionally remain thin wrappers around native OpenSCAD
-// translate() and rotate().  They improve readability without introducing a
-// geometry framework dependency such as BOSL2.
+// These helpers keep common placement operations readable without introducing
+// a geometry framework dependency. See transform/manual.md for the mental
+// model, coordinate-frame rules and the boundary with native OpenSCAD.
 
 
 
@@ -130,7 +130,8 @@ function xf_rot_deg(obj) =
 // Module: xf_apply()
 // Synopsis: Applies a transform object to child geometry.
 // Arguments:
-//   obj = Transform object created by xf_create().
+//   obj = Pose or frame transform object created by xf_create() or
+//         xf_frame_create().
 module xf_apply(obj) {
     if (obj.kind == "pose")
         translate(xf_pos_mm(obj))

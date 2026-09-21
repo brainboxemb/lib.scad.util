@@ -6,6 +6,25 @@ and modeling helpers for shared CAD projects.
 The library is intentionally small. Utilities belong here only when they are
 useful across unrelated projects and do not encode product-specific geometry.
 
+## Documentation
+
+Start with the short examples below, then use the feature manuals for the
+behavioral details and design rules:
+
+| Area | Manual | Use it for |
+| --- | --- | --- |
+| Transform | [`openscad/transform/manual.md`](openscad/transform/manual.md) | moves, rotations, mirrors, transform objects and coordinate frames |
+| Forge | [`openscad/forge/manual.md`](openscad/forge/manual.md) | tagged differences, Boolean overlap and reusable cutter objects |
+| Inspection | [`openscad/inspection/design/design.md`](openscad/inspection/design/design.md) | section-inspection behavior and design context |
+
+A useful rule of thumb is:
+
+```text
+xf_*    -> where/how geometry is placed
+fg_*    -> how positive and negative geometry are combined
+util_*  -> general utilities outside those language-like layers
+```
+
 ## Transform helpers
 
 `openscad/transform.scad` provides a deliberately small readability layer over
@@ -91,8 +110,12 @@ xf_apply(_frame)
     child_geometry();
 ```
 
-Frames are deliberately orthogonal: Forge/transform helpers do not silently
-introduce skew when axes are not perpendicular.
+Frames are deliberately orthogonal: the transform layer does not silently
+introduce skew when axes are not perpendicular. Reflections stay explicit via
+`xf_flip()` / `xf_*flip()`.
+
+See the [Transform manual](openscad/transform/manual.md) for frame semantics,
+object transforms, migration examples and the boundary with native OpenSCAD.
 
 ## Forge modeling helpers
 
@@ -118,8 +141,8 @@ fg_diff() {
 }
 ```
 
-The result is `(body - remove) + keep`. Every direct geometry branch inside
-`fg_diff()` should use `fg_body()`, `fg_remove()` or `fg_keep()`. The
+The result is `(body - remove) + keep`. Every participating geometry branch
+inside `fg_diff()` should use `fg_body()`, `fg_remove()` or `fg_keep()`. The
 underlying `fg_tag()` is available when a role needs to be selected by name.
 
 Forge owns a small default boolean overlap of **0.001 mm** through
@@ -149,6 +172,9 @@ fg_cutter_build(_cut);
 
 Box cutters support independent negative/positive overlap per axis. Cylinder
 cutters support radial, bottom and top overlap.
+
+See the [Forge manual](openscad/forge/manual.md) for role semantics, overlap
+rules, cutter-object usage, migration examples and explicit non-goals.
 
 ## Section inspection
 
@@ -234,9 +260,11 @@ Domain geometry belongs in its owning library or project.
 ```text
 openscad/
   forge.scad
+  forge/manual.md
   inspection.scad
-  transform.scad
   inspection/design/design.md
+  transform.scad
+  transform/manual.md
 
 consumer/
   section-inspection.scad
