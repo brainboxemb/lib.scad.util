@@ -6,6 +6,8 @@ build_engine:
   engine: direct
 
 openscad:
+  common_flags:
+    - --enable=object-function
   render_flags:
     - --render
   image_size: [1600, 1000]

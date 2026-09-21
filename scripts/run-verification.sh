@@ -11,6 +11,7 @@ for axis in X Y Z; do
   for direction in Positive Negative; do
     stem="section-${axis,,}-${direction,,}"
     openscad \
+      --enable=object-function \
       --render \
       -D "test_axis=\"$axis\"" \
       -D "test_direction=\"$direction\"" \
@@ -23,6 +24,7 @@ for axis in X Y Z; do
 done
 
 openscad \
+  --enable=object-function \
   --render \
   -D 'test_axis="None"' \
   -o "$out/section-none.stl" \
@@ -32,6 +34,7 @@ test -s "$out/section-none.stl"
 transform_source="$root/test/transform.scad"
 for transform in move xmove ymove zmove rot xrot yrot zrot object; do
   openscad \
+    --enable=object-function \
     --render \
     -D "test_transform=\"$transform\"" \
     -o "$out/transform-$transform.stl" \
@@ -42,6 +45,7 @@ done
 forge_source="$root/test/forge.scad"
 for forge in diff box-object box-direct cylinder-object cylinder-direct; do
   openscad \
+    --enable=object-function \
     --render \
     -D "test_forge=\"$forge\"" \
     -o "$out/forge-$forge.stl" \
