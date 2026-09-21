@@ -1,6 +1,6 @@
 use <../openscad/transform.scad>
 
-test_transform = "move"; // [move,xmove,ymove,zmove,rot,xrot,yrot,zrot,object]
+test_transform = "move"; // [move,xmove,ymove,zmove,rot,xrot,yrot,zrot,object,frame,frame-object]
 
 module fixture() {
     cube([2, 3, 4]);
@@ -35,6 +35,22 @@ else if (test_transform == "object")
         xf_create(
             pos_mm = [5, 6, 7],
             rot_deg = [15, 25, 35]
+        )
+    )
+        fixture();
+else if (test_transform == "frame")
+    xf_frame(
+        pos_mm = [5, 6, 7],
+        x_axis = [0, 1, 0],
+        y_axis = [0, 0, 1]
+    )
+        fixture();
+else if (test_transform == "frame-object")
+    xf_apply(
+        xf_frame_create(
+            pos_mm = [5, 6, 7],
+            x_axis = [0, 1, 0],
+            y_axis = [0, 0, 1]
         )
     )
         fixture();

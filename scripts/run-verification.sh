@@ -32,7 +32,7 @@ openscad \
 test -s "$out/section-none.stl"
 
 transform_source="$root/test/transform.scad"
-for transform in move xmove ymove zmove rot xrot yrot zrot object; do
+for transform in move xmove ymove zmove rot xrot yrot zrot object frame frame-object; do
   openscad \
     --enable=object-function \
     --render \
@@ -78,6 +78,7 @@ Verified:
 - xf_rot();
 - xf_xrot(), xf_yrot() and xf_zrot();
 - xf_create() / xf_apply() object transforms;
+- xf_frame() / xf_frame_create() orthogonal frame mapping;
 - fg_diff() body/remove/keep tagged booleans;
 - object and direct box cutters with default boolean overlap;
 - object and direct cylinder cutters with default boolean overlap;

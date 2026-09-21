@@ -47,10 +47,47 @@ xf_zrot(angle);
 
 xf_create(pos_mm = [x, y, z], rot_deg = [x_deg, y_deg, z_deg]);
 xf_apply(obj);
+
+xf_frame(pos_mm = [x, y, z], x_axis = [...], y_axis = [...]);
+xf_frame_create(pos_mm = [x, y, z], x_axis = [...], y_axis = [...]);
 ```
 
 The `xf_` prefix is intentionally short because these helpers are language-like
 transform primitives. General utilities continue to use the `util_` prefix.
+
+
+### Coordinate frames
+
+Use `xf_frame()` when the intent is to remap local axes rather than express
+the same operation as matrix coefficients. Any two orthogonal destination axes
+are enough; the third is derived as a right-handed frame.
+
+```openscad
+xf_frame(
+    pos_mm = [10, 0, 0],
+    x_axis = [0, 1, 0],
+    y_axis = [0, 0, 1]
+)
+    linear_extrude(height = 20)
+        square([5, 5]);
+```
+
+The object form uses the same `xf_apply()` path:
+
+```openscad
+_frame =
+    xf_frame_create(
+        pos_mm = [10, 0, 0],
+        x_axis = [0, 1, 0],
+        y_axis = [0, 0, 1]
+    );
+
+xf_apply(_frame)
+    child_geometry();
+```
+
+Frames are deliberately orthogonal: Forge/transform helpers do not silently
+introduce skew when axes are not perpendicular.
 
 ## Forge modeling helpers
 
