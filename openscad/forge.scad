@@ -266,7 +266,7 @@ module _fg_box_cutter_build(obj) {
         );
 
     xf_apply(obj.xf)
-        translate(-_overlap_min_mm)
+        xf_move(-_overlap_min_mm)
             cube(
                 obj.size_mm
                 + _overlap_min_mm
@@ -290,7 +290,7 @@ module _fg_cylinder_cutter_build(obj) {
             : 0;
 
     xf_apply(obj.xf)
-        translate([0, 0, -_bottom_overlap_mm])
+        xf_zmove(-_bottom_overlap_mm)
             cylinder(
                 d =
                     obj.diameter_mm
