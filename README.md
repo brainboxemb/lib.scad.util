@@ -6,6 +6,38 @@ and modeling helpers for shared CAD projects.
 The library is intentionally small. Utilities belong here only when they are
 useful across unrelated projects and do not encode product-specific geometry.
 
+## Transform helpers
+
+`openscad/transform.scad` provides a deliberately small readability layer over
+native OpenSCAD transforms. It uses plain OpenSCAD and does not depend on BOSL2.
+
+```openscad
+use <openscad/transform.scad>
+
+xf_zmove(10)
+    xf_xrot(90)
+        cylinder(d = 5, h = 20);
+```
+
+Available helpers:
+
+```openscad
+xf_move([x, y, z]);
+
+xf_xmove(x);
+xf_ymove(y);
+xf_zmove(z);
+
+xf_rot([x_angle, y_angle, z_angle]);
+
+xf_xrot(angle);
+xf_yrot(angle);
+xf_zrot(angle);
+```
+
+The `xf_` prefix is intentionally short because these helpers are language-like
+transform primitives. General utilities continue to use the `util_` prefix.
+
 ## Section inspection
 
 `util_section_inspect()` retains an exact slab of child geometry along X, Y or
@@ -90,6 +122,7 @@ Domain geometry belongs in its owning library or project.
 ```text
 openscad/
   inspection.scad
+  transform.scad
   inspection/design/design.md
 
 consumer/
@@ -99,6 +132,7 @@ consumer/
 
 test/
   section_inspection.scad
+  transform.scad
 
 scripts/
   run-verification.sh

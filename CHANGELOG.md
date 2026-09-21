@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Lightweight plain-OpenSCAD transform helpers with the `xf_` prefix:
+  `xf_move()`, axis-specific move helpers, `xf_rot()` and axis-specific
+  rotation helpers.
+
 ## v0.1.0
 
 ### Added
