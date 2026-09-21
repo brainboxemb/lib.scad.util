@@ -8,6 +8,49 @@
 // geometry framework dependency such as BOSL2.
 
 
+
+// Function: xf_create()
+// Synopsis: Creates a reusable position/rotation transform object.
+// Arguments:
+//   pos_mm = Translation vector in millimetres.
+//   rot_deg = Euler rotation vector in degrees.
+function xf_create(
+    pos_mm = [0, 0, 0],
+    rot_deg = [0, 0, 0]
+) =
+    assert(is_list(pos_mm) && len(pos_mm) == 3,
+        "xf_create pos_mm must contain three values")
+    assert(is_list(rot_deg) && len(rot_deg) == 3,
+        "xf_create rot_deg must contain three values")
+    object(
+        pos_mm = pos_mm,
+        rot_deg = rot_deg
+    );
+
+
+// Function: xf_pos_mm()
+// Synopsis: Returns the translation vector from a transform object.
+function xf_pos_mm(obj) =
+    obj.pos_mm;
+
+
+// Function: xf_rot_deg()
+// Synopsis: Returns the Euler rotation vector from a transform object.
+function xf_rot_deg(obj) =
+    obj.rot_deg;
+
+
+// Module: xf_apply()
+// Synopsis: Applies a transform object to child geometry.
+// Arguments:
+//   obj = Transform object created by xf_create().
+module xf_apply(obj) {
+    translate(xf_pos_mm(obj))
+        rotate(xf_rot_deg(obj))
+            children();
+}
+
+
 // Module: xf_move()
 // Usage:
 //   xf_move([10, 0, 5])

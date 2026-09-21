@@ -1,6 +1,6 @@
 use <../openscad/transform.scad>
 
-test_transform = "move"; // [move,xmove,ymove,zmove,rot,xrot,yrot,zrot]
+test_transform = "move"; // [move,xmove,ymove,zmove,rot,xrot,yrot,zrot,object]
 
 module fixture() {
     cube([2, 3, 4]);
@@ -29,4 +29,12 @@ else if (test_transform == "yrot")
         fixture();
 else if (test_transform == "zrot")
     xf_zrot(50)
+        fixture();
+else if (test_transform == "object")
+    xf_apply(
+        xf_create(
+            pos_mm = [5, 6, 7],
+            rot_deg = [15, 25, 35]
+        )
+    )
         fixture();

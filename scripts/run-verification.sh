@@ -30,13 +30,23 @@ openscad \
 test -s "$out/section-none.stl"
 
 transform_source="$root/test/transform.scad"
-for transform in move xmove ymove zmove rot xrot yrot zrot; do
+for transform in move xmove ymove zmove rot xrot yrot zrot object; do
   openscad \
     --render \
     -D "test_transform=\"$transform\"" \
     -o "$out/transform-$transform.stl" \
     "$transform_source"
   test -s "$out/transform-$transform.stl"
+done
+
+forge_source="$root/test/forge.scad"
+for forge in diff box-object box-direct cylinder-object cylinder-direct; do
+  openscad \
+    --render \
+    -D "test_forge=\"$forge\"" \
+    -o "$out/forge-$forge.stl" \
+    "$forge_source"
+  test -s "$out/forge-$forge.stl"
 done
 
 sync_fixture="$out/sync-fixture.scad"
@@ -63,6 +73,10 @@ Verified:
 - xf_xmove(), xf_ymove() and xf_zmove();
 - xf_rot();
 - xf_xrot(), xf_yrot() and xf_zrot();
+- xf_create() / xf_apply() object transforms;
+- fg_diff() body/remove/keep tagged booleans;
+- object and direct box cutters with default boolean overlap;
+- object and direct cylinder cutters with default boolean overlap;
 - consumer block insertion;
 - idempotent consumer block re-synchronization.
 

@@ -10,6 +10,8 @@ useful across unrelated projects and do not encode product-specific geometry.
 
 `openscad/transform.scad` provides a deliberately small readability layer over
 native OpenSCAD transforms. It uses plain OpenSCAD and does not depend on BOSL2.
+It also supports reusable transform objects through `xf_create()` and
+`xf_apply()`.
 
 ```openscad
 use <openscad/transform.scad>
@@ -17,6 +19,15 @@ use <openscad/transform.scad>
 xf_zmove(10)
     xf_xrot(90)
         cylinder(d = 5, h = 20);
+
+_part_xf =
+    xf_create(
+        pos_mm = [10, 0, 5],
+        rot_deg = [0, 90, 0]
+    );
+
+xf_apply(_part_xf)
+    cylinder(d = 5, h = 20);
 ```
 
 Available helpers:
@@ -33,10 +44,69 @@ xf_rot([x_angle, y_angle, z_angle]);
 xf_xrot(angle);
 xf_yrot(angle);
 xf_zrot(angle);
+
+xf_create(pos_mm = [x, y, z], rot_deg = [x_deg, y_deg, z_deg]);
+xf_apply(obj);
 ```
 
 The `xf_` prefix is intentionally short because these helpers are language-like
 transform primitives. General utilities continue to use the `util_` prefix.
+
+## Forge modeling helpers
+
+`openscad/forge.scad` is a deliberately small modeling layer inspired by the
+readability of BOSL2 tagged booleans and Relativity.scad class-based CSG, while
+remaining plain OpenSCAD and compatible with this portfolio's `object()` APIs.
+
+Forge does not implement attachments, selector expressions or replacement
+primitives. Its tagged difference is intentionally explicit:
+
+```openscad
+use <openscad/forge.scad>
+
+fg_diff() {
+    fg_body()
+        body();
+
+    fg_remove()
+        hole();
+
+    fg_keep()
+        rib();
+}
+```
+
+The result is `(body - remove) + keep`. Every direct geometry branch inside
+`fg_diff()` should use `fg_body()`, `fg_remove()` or `fg_keep()`. The
+underlying `fg_tag()` is available when a role needs to be selected by name.
+
+Forge owns a small default boolean overlap of **0.001 mm** through
+`fg_overlap_mm()`. Cutter helpers apply that overlap automatically so callers
+do not need to scatter tiny `+ 0.001` / `- 0.001` corrections through model
+code:
+
+```openscad
+fg_remove()
+    fg_cut_box(
+        size_mm = [10, 20, 5],
+        pos_mm = [5, 0, 0]
+    );
+```
+
+For reusable specifications:
+
+```openscad
+_cut =
+    fg_box_cutter_create(
+        size_mm = [10, 20, 5],
+        pos_mm = [5, 0, 0]
+    );
+
+fg_cutter_build(_cut);
+```
+
+Box cutters support independent negative/positive overlap per axis. Cylinder
+cutters support radial, bottom and top overlap.
 
 ## Section inspection
 
@@ -121,6 +191,7 @@ Domain geometry belongs in its owning library or project.
 
 ```text
 openscad/
+  forge.scad
   inspection.scad
   transform.scad
   inspection/design/design.md
@@ -131,6 +202,7 @@ consumer/
   sync-section-inspection.ps1
 
 test/
+  forge.scad
   section_inspection.scad
   transform.scad
 
