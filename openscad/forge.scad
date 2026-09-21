@@ -15,6 +15,42 @@ function fg_overlap_mm() =
     _FG_OVERLAP_MM;
 
 
+
+// Function: fg_left()
+// Synopsis: Returns the local X-min box-overlap face token.
+function fg_left() = "left";
+
+
+// Function: fg_right()
+// Synopsis: Returns the local X-max box-overlap face token.
+function fg_right() = "right";
+
+
+// Function: fg_front()
+// Synopsis: Returns the local Y-min box-overlap face token.
+function fg_front() = "front";
+
+
+// Function: fg_back()
+// Synopsis: Returns the local Y-max box-overlap face token.
+function fg_back() = "back";
+
+
+// Function: fg_bottom()
+// Synopsis: Returns the local Z-min overlap token.
+function fg_bottom() = "bottom";
+
+
+// Function: fg_top()
+// Synopsis: Returns the local Z-max overlap token.
+function fg_top() = "top";
+
+
+// Function: fg_radial()
+// Synopsis: Returns the radial cylinder-overlap token.
+function fg_radial() = "radial";
+
+
 // Function: fg_box_cutter_create()
 // Synopsis: Creates an overlap-aware box cutter specification.
 // Arguments:
@@ -24,8 +60,9 @@ function fg_overlap_mm() =
 //   overlap_min = Legacy per-axis booleans for extending negative faces.
 //   overlap_max = Legacy per-axis booleans for extending positive faces.
 //   overlap_mm = Boolean overlap amount.
-//   overlap = Preferred named local faces: "left", "right", "front", "back",
-//             "bottom" and "top". When provided, this takes precedence over
+//   overlap = Preferred local face tokens from fg_left(), fg_right(),
+//             fg_front(), fg_back(), fg_bottom() and fg_top(). When provided,
+//             this takes precedence over
 //             overlap_min/overlap_max.
 function fg_box_cutter_create(
     size_mm,
@@ -46,7 +83,7 @@ function fg_box_cutter_create(
         "fg_box_cutter_create overlap_max must contain three booleans")
     assert(_fg_overlap_names_are_valid(
         overlap,
-        ["left", "right", "front", "back", "bottom", "top"]
+        [fg_left(), fg_right(), fg_front(), fg_back(), fg_bottom(), fg_top()]
     ), "fg_box_cutter_create overlap contains an unsupported face")
     assert(overlap_mm >= 0,
         "fg_box_cutter_create overlap_mm must be >= 0")
@@ -55,17 +92,17 @@ function fg_box_cutter_create(
             is_undef(overlap)
                 ? overlap_min
                 : [
-                    _fg_has_overlap(overlap, "left"),
-                    _fg_has_overlap(overlap, "front"),
-                    _fg_has_overlap(overlap, "bottom")
+                    _fg_has_overlap(overlap, fg_left()),
+                    _fg_has_overlap(overlap, fg_front()),
+                    _fg_has_overlap(overlap, fg_bottom())
                 ],
         _overlap_max =
             is_undef(overlap)
                 ? overlap_max
                 : [
-                    _fg_has_overlap(overlap, "right"),
-                    _fg_has_overlap(overlap, "back"),
-                    _fg_has_overlap(overlap, "top")
+                    _fg_has_overlap(overlap, fg_right()),
+                    _fg_has_overlap(overlap, fg_back()),
+                    _fg_has_overlap(overlap, fg_top())
                 ]
     )
     object(
@@ -93,7 +130,7 @@ function fg_box_cutter_create(
 //   has_bottom_overlap = Legacy bottom-overlap boolean.
 //   has_top_overlap = Legacy top-overlap boolean.
 //   overlap_mm = Boolean overlap amount.
-//   overlap = Preferred named regions: "radial", "bottom" and "top".
+//   overlap = Preferred tokens from fg_radial(), fg_bottom() and fg_top().
 //             When provided, this takes precedence over the legacy booleans.
 function fg_cylinder_cutter_create(
     diameter_mm,
@@ -118,7 +155,7 @@ function fg_cylinder_cutter_create(
         "fg_cylinder_cutter_create has_top_overlap must be boolean")
     assert(_fg_overlap_names_are_valid(
         overlap,
-        ["radial", "bottom", "top"]
+        [fg_radial(), fg_bottom(), fg_top()]
     ), "fg_cylinder_cutter_create overlap contains an unsupported region")
     assert(overlap_mm >= 0,
         "fg_cylinder_cutter_create overlap_mm must be >= 0")
@@ -126,15 +163,15 @@ function fg_cylinder_cutter_create(
         _has_radial_overlap =
             is_undef(overlap)
                 ? has_radial_overlap
-                : _fg_has_overlap(overlap, "radial"),
+                : _fg_has_overlap(overlap, fg_radial()),
         _has_bottom_overlap =
             is_undef(overlap)
                 ? has_bottom_overlap
-                : _fg_has_overlap(overlap, "bottom"),
+                : _fg_has_overlap(overlap, fg_bottom()),
         _has_top_overlap =
             is_undef(overlap)
                 ? has_top_overlap
-                : _fg_has_overlap(overlap, "top")
+                : _fg_has_overlap(overlap, fg_top())
     )
     object(
         kind = "cylinder",

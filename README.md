@@ -155,7 +155,7 @@ fg_remove()
     fg_cut_box(
         size_mm = [10, 20, 5],
         pos_mm = [5, 0, 0],
-        overlap = ["left", "right", "back"]
+        overlap = [fg_left(), fg_right(), fg_back()]
     );
 ```
 
@@ -171,8 +171,9 @@ _cut =
 fg_cutter_build(_cut);
 ```
 
-Box cutters use readable local face names such as `"left"`, `"right"` and
-`"back"`; cylinder cutters use `"radial"`, `"bottom"` and `"top"`. The
+Box cutters use readable face-token functions such as `fg_left()`,
+`fg_right()` and `fg_back()`; cylinder cutters use `fg_radial()`,
+`fg_bottom()` and `fg_top()`. The
 v0.3.0 boolean overlap parameters remain compatible when the named list is
 omitted.
 

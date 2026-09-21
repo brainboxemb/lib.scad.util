@@ -43,7 +43,7 @@ else if (test_forge == "box-faces") {
         fg_box_cutter_create(
             size_mm = [4, 5, 6],
             pos_mm = [1, 2, 3],
-            overlap = ["left", "right", "back"]
+            overlap = [fg_left(), fg_right(), fg_back()]
         );
 
     assert(
@@ -79,7 +79,7 @@ else if (test_forge == "cylinder-faces") {
         fg_cylinder_cutter_create(
             diameter_mm = 5,
             height_mm = 8,
-            overlap = ["radial", "top"]
+            overlap = [fg_radial(), fg_top()]
         );
 
     assert(
