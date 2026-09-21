@@ -21,8 +21,13 @@ Generic bootstrap and dependency handling belong to the pinned
 
 ## Public API
 
-Public modules and functions use the `util_` prefix to avoid collisions in
-OpenSCAD's shared namespace.
+General public modules and functions use the `util_` prefix to avoid collisions
+in OpenSCAD's shared namespace.
+
+The lightweight transform layer in `openscad/transform.scad` is the deliberate
+exception. Its public helpers use the short `xf_` prefix because they are
+language-like wrappers around native `translate()` and `rotate()`, for example
+`xf_zmove()` and `xf_xrot()`.
 
 Private implementation helpers use a leading underscore.
 

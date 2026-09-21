@@ -29,6 +29,16 @@ openscad \
   "$source_file"
 test -s "$out/section-none.stl"
 
+transform_source="$root/test/transform.scad"
+for transform in move xmove ymove zmove rot xrot yrot zrot; do
+  openscad \
+    --render \
+    -D "test_transform=\"$transform\"" \
+    -o "$out/transform-$transform.stl" \
+    "$transform_source"
+  test -s "$out/transform-$transform.stl"
+done
+
 sync_fixture="$out/sync-fixture.scad"
 printf 'cube([1, 1, 1]);\n' > "$sync_fixture"
 bash "$root/consumer/sync-section-inspection.sh" "$sync_fixture"
@@ -45,10 +55,14 @@ cat > "$out/README.md" <<'EOF'
 
 Verified:
 
-- X / Positive and Negative;
-- Y / Positive and Negative;
-- Z / Positive and Negative;
-- None / pass-through;
+- X / Positive and Negative section inspection;
+- Y / Positive and Negative section inspection;
+- Z / Positive and Negative section inspection;
+- None / pass-through section inspection;
+- xf_move();
+- xf_xmove(), xf_ymove() and xf_zmove();
+- xf_rot();
+- xf_xrot(), xf_yrot() and xf_zrot();
 - consumer block insertion;
 - idempotent consumer block re-synchronization.
 
