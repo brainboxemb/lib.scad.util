@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Add preferred named overlap lists for Forge cutters, for example
+  `overlap = [fg_left(), fg_right(), fg_back()]` on boxes and
+  `overlap = [fg_radial(), fg_top()]` on cylinders. Token functions are imported through normal OpenSCAD `use` and resolve by
+  membership so opposite faces remain independent; the v0.3.0 boolean overlap
+  parameters remain supported for compatibility.
+
+
 ## v0.3.0
 
 ### Added

@@ -43,7 +43,7 @@ for transform in move xmove ymove zmove flip xflip yflip zflip rot xrot yrot zro
 done
 
 forge_source="$root/test/forge.scad"
-for forge in diff box-object box-direct cylinder-object cylinder-direct; do
+for forge in diff box-object box-direct box-faces cylinder-object cylinder-direct cylinder-faces; do
   openscad \
     --enable=object-function \
     --render \
@@ -82,7 +82,9 @@ Verified:
 - xf_frame() / xf_frame_create() orthogonal frame mapping;
 - fg_diff() body/remove/keep tagged booleans;
 - object and direct box cutters with default boolean overlap;
+- named box-face overlap, including simultaneous left + right faces;
 - object and direct cylinder cutters with default boolean overlap;
+- named cylinder-region overlap;
 - consumer block insertion;
 - idempotent consumer block re-synchronization.
 
