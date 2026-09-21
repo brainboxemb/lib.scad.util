@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Add preferred named overlap lists for Forge cutters, for example
+  `overlap = ["left", "right", "back"]` on boxes and
+  `overlap = ["radial", "top"]` on cylinders. Named faces are resolved by
+  membership so opposite faces remain independent; the v0.3.0 boolean overlap
+  parameters remain supported for compatibility.
+
+
 ## v0.3.0
 
 ### Added

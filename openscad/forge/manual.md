@@ -138,26 +138,39 @@ before local overlap is added.
 
 By default all six faces receive Boolean overlap.
 
-For precise face control:
+For precise face control, prefer the named local faces:
 
 ```openscad
 fg_cut_box(
     size_mm = [10, 20, 5],
     pos_mm = [5, 0, 0],
-    overlap_min = [true, false, false],
-    overlap_max = [true, true, false]
+    overlap = ["left", "right", "back"]
 );
 ```
 
-The vectors map to axes:
+The names refer to the cutter's **local** box faces:
 
-```text
-overlap_min = [-X, -Y, -Z]
-overlap_max = [+X, +Y, +Z]
-```
+| Name | Local face |
+| --- | --- |
+| `"left"` | X-min |
+| `"right"` | X-max |
+| `"front"` | Y-min |
+| `"back"` | Y-max |
+| `"bottom"` | Z-min |
+| `"top"` | Z-max |
 
-A `true` entry extends that face by `overlap_mm`; a `false` entry preserves
-the nominal face.
+Opposite faces remain independent. For example, `["left", "right"]` extends
+both X faces; the directions are not summed and therefore cannot cancel.
+
+The names are strings deliberately: normal consumers load Forge with
+`use <forge.scad>`, and OpenSCAD `use` imports modules/functions but not
+global variable constants. String face names keep the call self-contained
+without requiring a switch to `include`.
+
+`overlap = []` explicitly requests no Boolean overlap. If `overlap` is
+omitted, the v0.3.0 `overlap_min` / `overlap_max` boolean inputs remain
+supported for compatibility. The named list takes precedence when both forms
+are supplied.
 
 This lets a cutter cross the specific Boolean boundaries it must cross without
 silently changing unrelated outer faces.
@@ -176,20 +189,21 @@ fg_cut_cylinder(
 
 The nominal position is the bottom-center of the cylinder.
 
-Overlap can be controlled independently:
+Overlap uses the same named-list style:
 
 ```openscad
 fg_cut_cylinder(
     diameter_mm = 5,
     height_mm = 12,
-    has_radial_overlap = true,
-    has_bottom_overlap = false,
-    has_top_overlap = true
+    overlap = ["radial", "top"]
 );
 ```
 
-Radial overlap increases the diameter by twice `overlap_mm`; bottom and top
-overlap extend the cylinder along local Z.
+`"radial"` increases the diameter by twice `overlap_mm`; `"bottom"` and
+`"top"` extend the cylinder along local Z.
+
+The older `has_radial_overlap`, `has_bottom_overlap` and
+`has_top_overlap` booleans remain accepted when `overlap` is omitted.
 
 ## Cutter objects
 
@@ -200,8 +214,7 @@ _access_cut =
     fg_box_cutter_create(
         size_mm = [10, 5, 3],
         pos_mm = [2, 0, 4],
-        overlap_min = [true, false, false],
-        overlap_max = [true, true, false]
+        overlap = ["left", "right", "back"]
     );
 
 fg_cutter_build(_access_cut);
@@ -283,8 +296,7 @@ fg_diff() {
         fg_cut_box(
             size_mm = [len, depth, width],
             pos_mm = [x0, y0, z0],
-            overlap_min = [true, false, false],
-            overlap_max = [true, true, false]
+            overlap = ["left", "right", "back"]
         );
 }
 ```

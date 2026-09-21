@@ -154,7 +154,8 @@ code:
 fg_remove()
     fg_cut_box(
         size_mm = [10, 20, 5],
-        pos_mm = [5, 0, 0]
+        pos_mm = [5, 0, 0],
+        overlap = ["left", "right", "back"]
     );
 ```
 
@@ -170,8 +171,10 @@ _cut =
 fg_cutter_build(_cut);
 ```
 
-Box cutters support independent negative/positive overlap per axis. Cylinder
-cutters support radial, bottom and top overlap.
+Box cutters use readable local face names such as `"left"`, `"right"` and
+`"back"`; cylinder cutters use `"radial"`, `"bottom"` and `"top"`. The
+v0.3.0 boolean overlap parameters remain compatible when the named list is
+omitted.
 
 See the [Forge manual](openscad/forge/manual.md) for role semantics, overlap
 rules, cutter-object usage, migration examples and explicit non-goals.
