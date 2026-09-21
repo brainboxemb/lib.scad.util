@@ -1,5 +1,20 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Forge modeling helpers in `openscad/forge.scad`: explicit body/remove/keep
+  tagged differences, object/direct box and cylinder cutters, and one
+  library-owned 0.001 mm default boolean overlap.
+- Object-based transforms through `xf_create()` and `xf_apply()`, while
+  retaining the existing lightweight `xf_*` wrappers.
+- Add `xf_frame()` / `xf_frame_create()` for readable orthogonal coordinate-frame
+  remapping without exposing raw `multmatrix()` coefficients to consumers.
+- Add `xf_flip()` plus axis-specific mirror helpers so reflected frame mappings
+  remain readable without hand-written reflection matrices.
+
+
 ## v0.2.0
 
 ### Added

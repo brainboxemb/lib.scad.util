@@ -11,6 +11,7 @@ for axis in X Y Z; do
   for direction in Positive Negative; do
     stem="section-${axis,,}-${direction,,}"
     openscad \
+      --enable=object-function \
       --render \
       -D "test_axis=\"$axis\"" \
       -D "test_direction=\"$direction\"" \
@@ -23,6 +24,7 @@ for axis in X Y Z; do
 done
 
 openscad \
+  --enable=object-function \
   --render \
   -D 'test_axis="None"' \
   -o "$out/section-none.stl" \
@@ -30,13 +32,25 @@ openscad \
 test -s "$out/section-none.stl"
 
 transform_source="$root/test/transform.scad"
-for transform in move xmove ymove zmove rot xrot yrot zrot; do
+for transform in move xmove ymove zmove flip xflip yflip zflip rot xrot yrot zrot object frame frame-object; do
   openscad \
+    --enable=object-function \
     --render \
     -D "test_transform=\"$transform\"" \
     -o "$out/transform-$transform.stl" \
     "$transform_source"
   test -s "$out/transform-$transform.stl"
+done
+
+forge_source="$root/test/forge.scad"
+for forge in diff box-object box-direct cylinder-object cylinder-direct; do
+  openscad \
+    --enable=object-function \
+    --render \
+    -D "test_forge=\"$forge\"" \
+    -o "$out/forge-$forge.stl" \
+    "$forge_source"
+  test -s "$out/forge-$forge.stl"
 done
 
 sync_fixture="$out/sync-fixture.scad"
@@ -60,9 +74,15 @@ Verified:
 - Z / Positive and Negative section inspection;
 - None / pass-through section inspection;
 - xf_move();
+- xf_flip(), xf_xflip(), xf_yflip() and xf_zflip();
 - xf_xmove(), xf_ymove() and xf_zmove();
 - xf_rot();
 - xf_xrot(), xf_yrot() and xf_zrot();
+- xf_create() / xf_apply() object transforms;
+- xf_frame() / xf_frame_create() orthogonal frame mapping;
+- fg_diff() body/remove/keep tagged booleans;
+- object and direct box cutters with default boolean overlap;
+- object and direct cylinder cutters with default boolean overlap;
 - consumer block insertion;
 - idempotent consumer block re-synchronization.
 

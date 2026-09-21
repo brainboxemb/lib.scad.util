@@ -24,10 +24,10 @@ Generic bootstrap and dependency handling belong to the pinned
 General public modules and functions use the `util_` prefix to avoid collisions
 in OpenSCAD's shared namespace.
 
-The lightweight transform layer in `openscad/transform.scad` is the deliberate
-exception. Its public helpers use the short `xf_` prefix because they are
-language-like wrappers around native `translate()` and `rotate()`, for example
-`xf_zmove()` and `xf_xrot()`.
+The lightweight transform layer in `openscad/transform.scad` and the Forge
+modeling layer in `openscad/forge.scad` are deliberate exceptions. Transform
+helpers use the short `xf_` prefix; Forge modeling/boolean helpers use `fg_`.
+Both prefixes are language-like APIs rather than domain geometry.
 
 Private implementation helpers use a leading underscore.
 
@@ -37,10 +37,25 @@ implementation helpers so the consumer-facing API is visible first.
 Keep dependencies minimal. A utility should use plain OpenSCAD when practical;
 do not add BOSL2 or another geometry dependency merely for convenience.
 
+## Documentation
+
+Keep the root README as the quickstart and navigation surface. Language-like
+utility layers with non-trivial behavior should also have a focused manual next
+to their source, for example `openscad/forge/manual.md` and
+`openscad/transform/manual.md`.
+
+Document intent and boundaries, not only signatures. In particular, keep
+Boolean overlap distinct from fit clearance and document when native OpenSCAD
+is clearer than adding another helper.
+
 ## Units and geometry
 
 Public dimensional parameters are millimetres unless explicitly documented
 otherwise.
+
+Forge's default boolean overlap is a modeling robustness allowance, not design
+clearance. Keep its library default small and centralized; a consumer that
+needs a larger manufacturing/modeling overlap must request that explicitly.
 
 Inspection helpers must not modify the source model outside the requested
 inspection operation. `axis="None"` must pass child geometry through
