@@ -4,7 +4,7 @@
 
 ### Changed
 
-- Adopt released `tool.scad-project v0.15.6` with exact tool gitlink `8ea81a0c3483770bedda75ccf80fb72797097c0a` for Migration 009, preserving utility-library geometry/API while correcting production-branch run concurrency.
+- Advance Migration 009 to released `tool.scad-project v0.15.7` with exact tool gitlink `bfaac9f6916c09bc6525abddf64c87238fe59103`, retaining production-branch serialization and restoring the qualified read-only `update-repo status` contract while preserving utility-library geometry/API.
 
 ## v0.4.0
 
