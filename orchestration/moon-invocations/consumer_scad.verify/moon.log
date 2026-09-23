@@ -1,0 +1,87 @@
+[ WARN 2026-09-23 17:57:24.339] moon_app::queries::changed_files  Detected a shallow checkout, unable to run Git commands to determine changed files. 
+[ WARN 17:57:24.339] moon_app::queries::changed_files  A full Git history is required for affected checks, falling back to an empty files list. 
+[ WARN 17:57:25.552] moon_task_hasher::task_hasher  Attempted to hash input update-repo.ps1 but it does not exist, skipping 
+[ WARN 17:57:25.553] moon_task_hasher::task_hasher  Attempted to hash input update-repo.sh but it does not exist, skipping 
+[ WARN 17:57:25.553] moon_task_hasher::task_hasher  Attempted to hash input doc/30-verification.md but it does not exist, skipping 
+▮▮▮▮ consumer:scad.verify (ebbbeb06)
++ openscad-docsgen -m -T /work/openscad/inspection.scad
+Parsing...
+  /work/openscad/inspection.scad
+No log requests to process
++ bash scripts/run-verification.sh
+Geometries in cache: 3
+Geometry cache size in bytes: 2568
+CGAL Polyhedrons in cache: 1
+CGAL cache size in bytes: 2000
+Total rendering time: 0:00:00.003
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:        8
+   Facets:         12
+Geometries in cache: 3
+Geometry cache size in bytes: 2568
+CGAL Polyhedrons in cache: 1
+CGAL cache size in bytes: 2000
+Total rendering time: 0:00:00.003
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:        8
+   Facets:         12
+Geometries in cache: 3
+Geometry cache size in bytes: 2568
+CGAL Polyhedrons in cache: 1
+CGAL cache size in bytes: 2000
+Total rendering time: 0:00:00.003
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:        8
+   Facets:         12
+Geometries in cache: 3
+Geometry cache size in bytes: 2568
+CGAL Polyhedrons in cache: 1
+CGAL cache size in bytes: 2000
+Total rendering time: 0:00:00.003
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:        8
+   Facets:         12
+Geometries in cache: 3
+Geometry cache size in bytes: 2568
+CGAL Polyhedrons in cache: 1
+CGAL cache size in bytes: 2000
+Total rendering time: 0:00:00.003
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:        8
+   Facets:         12
+Geometries in cache: 3
+Geometry cache size in bytes: 2568
+CGAL Polyhedrons in cache: 1
+CGAL cache size in bytes: 2000
+Total rendering time: 0:00:00.002
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:        8
+   Facets:         12
+Geometries in cache: 1
+Geometry cache size in bytes: 856
+CGAL Polyhedrons in cache: 0
+CGAL cache size in bytes: 0
+Total rendering time: 0:00:00.000
+Top level object is a 3D object (PolySet):
+   Convex:       yes
+   Facets:         6
+Synchronized section-inspection Customizer block in /work/vrf/out/sync-fixture.scad
+Synchronized section-inspection Customizer block in /work/vrf/out/sync-fixture.scad
+verify: OK
+▮▮▮▮ consumer:scad.verify (971ms, ebbbeb06)
+
+Tasks: 1 completed
+ Time: 1s 21ms
+

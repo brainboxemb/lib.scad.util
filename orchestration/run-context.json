@@ -1,0 +1,16 @@
+{
+  "base_revision": "d6d258552fa05ad2ff14ccd3959ecd76b83b9875",
+  "event_name": "push",
+  "publication_family": "verification",
+  "repository": "brainboxemb/lib.scad.util",
+  "run_attempt": "1",
+  "run_id": "35899078347",
+  "schema": "brainboxemb.scad-orchestration-run-context",
+  "schema_version": 1,
+  "snapshot_preparation": {
+    "duration_ms": 3,
+    "finished_at": "2026-09-23T17:57:28.184Z",
+    "started_at": "2026-09-23T17:57:28.181Z"
+  },
+  "source_revision": "123207fb32bcad81b209265d8f52bf8abf307127"
+}
