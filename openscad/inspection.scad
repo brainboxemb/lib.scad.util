@@ -4,6 +4,8 @@
 //
 // FileSummary: Public X/Y/Z section-inspection utility for interactive CAD work.
 //
+// - Design: inspection/design/design.md
+//
 // The utility is intended mainly for a project's main.scad / Customizer view.
 // It keeps one exact slab of the child model without changing the model itself.
 //

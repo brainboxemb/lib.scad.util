@@ -4,6 +4,7 @@ set -euo pipefail
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 out="$root/vrf/out"
 mkdir -p "$out"
+cp "$root/doc/30-verification.md" "$out/30-verification.md"
 
 source_file="$root/test/section_inspection.scad"
 
@@ -66,6 +67,8 @@ test "$first_sha" = "$second_sha"
 
 cat > "$out/README.md" <<'EOF'
 # Verification
+
+Repository-level strategy/status: [30-verification.md](30-verification.md).
 
 Verified:
 
