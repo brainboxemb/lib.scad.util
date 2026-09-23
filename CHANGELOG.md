@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.4.1
+
 ### Removed
 
 - Remove the legacy util-owned `xf_*` transform API and `fg_*` modeling
