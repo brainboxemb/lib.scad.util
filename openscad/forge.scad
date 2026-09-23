@@ -2,6 +2,7 @@
 // LibFile: forge.scad
 //   Small plain-OpenSCAD modeling helpers for tagged booleans and reliable
 //   cutter overlap. See forge/manual.md for role and overlap semantics.
+//   - Usage/reference: forge/manual.md
 //////////////////////////////////////////////////////////////////////
 
 use <transform.scad>

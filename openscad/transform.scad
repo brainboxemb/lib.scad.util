@@ -3,6 +3,8 @@
 //
 // FileSummary: Plain-OpenSCAD placement, rotation, reflection and frame helpers.
 //
+// - Usage/reference: transform/manual.md
+//
 // These helpers keep common placement operations readable without introducing
 // a geometry framework dependency. See transform/manual.md for the mental
 // model, coordinate-frame rules and the boundary with native OpenSCAD.
