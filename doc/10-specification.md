@@ -3,7 +3,7 @@
 ## Why this library exists
 
 Some OpenSCAD helpers are useful across unrelated products but do not justify
-being product libraries or part of a larger modeling language.
+being product libraries or part of a shared modeling language.
 
 `lib.scad.util` owns those small domain-independent utilities.
 
@@ -28,18 +28,14 @@ The library also owns one canonical Customizer-variable block for interactive
 section inspection. The synchronization scripts must be idempotent and must not
 silently duplicate or drift those controls in consuming projects.
 
-## Existing modeling helper surfaces
+## Ownership boundary
 
-This repository still publishes and verifies existing `xf_*` transform helpers
-and `fg_*` modeling helpers.
+This library does not own a modeling language.
 
-Migration 010 does not deprecate or remove them.
-
-Portfolio ownership for **new** Forge modeling-language development is now
-`lib.scad.forge`. New language-like transform/CSG/cutter behavior should
-therefore be considered there first.
+Shared transforms, coordinate frames, tagged CSG, cutters, overlap semantics and
+similar modeling vocabulary belong to `lib.scad.forge`.
 
 ## Non-goals
 
 This library does not own product-specific geometry, hardware semantics,
-project/build tooling, or a new second Forge modeling language.
+project/build tooling, or a parallel Forge-compatible API surface.
