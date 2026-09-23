@@ -2,26 +2,22 @@
 
 ## Repository structure
 
-The current public surfaces are concrete, separate entrypoints:
+The current public source surface is intentionally small:
 
 ```text
 openscad/
-├── inspection.scad
-├── transform.scad
-└── forge.scad
+└── inspection.scad
 ```
 
-Their detailed guidance lives beside source:
+Detailed inspection guidance lives beside source:
 
 ```text
 openscad/inspection/design/design.md
-openscad/transform/manual.md
-openscad/forge/manual.md
 ```
 
 ## Inspection
 
-`inspection.scad` is the current util-owned general geometry helper.
+`inspection.scad` is the util-owned general geometry helper.
 
 It builds one large axis-aligned retained slab around the requested section and
 intersects child geometry with that slab. `axis="None"` bypasses that operation
@@ -38,17 +34,11 @@ marked block and are required to be idempotent.
 This keeps interactive controls consistent without moving consumer model logic
 into the library.
 
-## Existing transform and fg helpers
+## Modeling-language boundary
 
-`transform.scad` and `forge.scad` remain real, verified public source in this
-repository.
-
-Their existing APIs stay supported by this repository until a separate
-migration changes that contract.
-
-The architectural distinction is about **future ownership**: the current shared
-Forge modeling language now lives in `lib.scad.forge`, so new language-like
-modeling behavior should not automatically be added to util.
+Transforms, coordinate frames, tagged CSG and reusable cutters are deliberately
+absent from this repository. Their shared implementation and API belong to
+`lib.scad.forge`.
 
 ## Dependencies
 
