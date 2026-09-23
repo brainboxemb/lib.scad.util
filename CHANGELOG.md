@@ -12,6 +12,8 @@
 
 ### Changed
 
+- Align the util documentation collection with the shared numbered plan/manual/specification/design/verification families, including a local documentation index and repository-specific development/user manuals.
+
 - Adopt the Migration-011 tooling baseline: tool.git-project v0.2.14, tool.scad-project v0.15.11, managed bootstrap/update launchers, self-scoped workflow filenames and current reusable CI/release APIs.
 
 - Align repository documentation and agent guidance with Migration 010: add numbered plan/specification/design/verification authorities, route shared workflow through `brainboxemb.meta`, clarify that new Forge modeling-language work belongs to `lib.scad.forge`, publish verification strategy with generated evidence, and add source documentation breadcrumbs without changing utility API behavior.

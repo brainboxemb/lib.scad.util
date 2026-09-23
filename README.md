@@ -5,10 +5,12 @@ library or to the Forge modeling language.
 
 ## Start here
 
-- [Plan](doc/00-plan.md)
-- [Specification](doc/10-specification.md)
-- [Design](doc/20-design.md)
-- [Verification](doc/30-verification.md)
+- [Documentation index](doc/README.md)
+- [Plan](doc/10-00-plan.md)
+- [Manuals](doc/20-00-manuals.md)
+- [Specification](doc/30-00-specification.md)
+- [Design](doc/40-00-design.md)
+- [Verification](doc/50-00-verification.md)
 - [Inspection design](openscad/inspection/design/design.md)
 - [Changelog](CHANGELOG.md)
 
