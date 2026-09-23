@@ -12,6 +12,8 @@
 
 ### Changed
 
+- Adopt the Migration-011 tooling baseline: tool.git-project v0.2.14, tool.scad-project v0.15.11, managed bootstrap/update launchers, self-scoped workflow filenames and current reusable CI/release APIs.
+
 - Align repository documentation and agent guidance with Migration 010: add numbered plan/specification/design/verification authorities, route shared workflow through `brainboxemb.meta`, clarify that new Forge modeling-language work belongs to `lib.scad.forge`, publish verification strategy with generated evidence, and add source documentation breadcrumbs without changing utility API behavior.
 
 - Advance Migration 009 to released `tool.scad-project v0.15.7` with exact tool gitlink `bfaac9f6916c09bc6525abddf64c87238fe59103`, retaining production-branch serialization and restoring the qualified read-only `update-repo status` contract while preserving utility-library geometry/API.
