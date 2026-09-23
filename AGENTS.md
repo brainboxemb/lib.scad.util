@@ -11,6 +11,6 @@ Do not inherit `AGENTS.md` from pinned tools as working policy for this
 library. Exact dependency behavior comes from this repository's config/gitlinks
 plus the pinned dependency's README, docs, source and tests.
 
-Keep new utilities domain-independent. Existing `xf_*` and `fg_*` APIs remain
-supported here, but new shared modeling-language development belongs to
-`lib.scad.forge` unless a separate API migration says otherwise.
+Keep this repository focused on small domain-independent utilities. Shared
+modeling-language behavior such as transforms, tagged CSG and cutters belongs to
+`lib.scad.forge`; do not reintroduce parallel `xf_*` or `fg_*` APIs here.

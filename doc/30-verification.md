@@ -3,7 +3,7 @@
 ## Strategy
 
 Verification is executable and deliberately small. It exercises every meaningful
-branch of the current public helper surfaces and the managed consumer controls.
+branch of the current public inspection helper and the managed consumer controls.
 
 ## Inspection coverage
 
@@ -15,21 +15,6 @@ branch of the current public helper surfaces and the managed consumer controls.
 - `None` pass-through mode.
 
 Axis slices use the minimum supported retained depth of 0.1 mm.
-
-## Existing transform coverage
-
-`test/transform.scad` verifies the existing move, rotation, flip, transform
-object and orthogonal frame APIs.
-
-This coverage remains required while those public APIs remain supported here.
-
-## Existing fg helper coverage
-
-`test/forge.scad` verifies the existing tagged difference and cutter helper
-surfaces, including named overlap faces/regions.
-
-This is compatibility verification for the API this repository still publishes;
-it does not assign new Forge modeling-language ownership to util.
 
 ## Consumer-sync coverage
 
