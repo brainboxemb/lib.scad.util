@@ -14,6 +14,11 @@ Shared modeling-language behavior now belongs to `lib.scad.forge`. In
 particular, transforms, tagged CSG and overlap-aware cutters are not util
 responsibilities and should not be reintroduced here.
 
+Migration 011 issue #18 is the current repository-infrastructure step: adopt
+`tool.git-project v0.2.14` and `tool.scad-project v0.15.11`, managed root
+launchers and the shared self/reusable workflow naming without changing the
+inspection-only utility API established by #16/#17.
+
 ## Working method
 
 1. inspect current source, open issues/PRs, live CI and generated evidence;
